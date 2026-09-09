@@ -19,6 +19,9 @@ public class ETLPipeline {
            while ((line = br.readLine()) != null) {
                line = line.trim();
                String[] fields = line.split(splitBy);
+               for (int i = 0; i < fields.length;i++) {
+                   fields[i] = fields[i].trim();
+               }
                if (fields.length != 5) {
                    skipped++;
                    index++;
@@ -26,7 +29,11 @@ public class ETLPipeline {
                }
                // checks for header
                if (index == 0) {
-                   output.add(fields);
+                   String[] header = Arrays.copyOf(fields,fields.length + 3);
+                   header[5] = "GrossPay";
+                   header[6] = "PayLevel";
+                   header[7] = "EmploymentStatus";
+                   output.add(header);
                    index++;
                    continue;
                }
@@ -68,7 +75,7 @@ public class ETLPipeline {
               if (fields[2].equals("IT")) {
                   gross_pay *= 1.05;
               }
-              gross_pay = Math.round(gross_pay * Math.pow(10, 2)) / Math.pow(10, 2);
+              gross_pay = Math.round(gross_pay * 100.0) / 100.0;
               String hours_string = String.format("%.2f",hours);
               String rate_string = String.format("%.2f",rate);
               String gross_pay_string = String.format("%.2f",gross_pay);
