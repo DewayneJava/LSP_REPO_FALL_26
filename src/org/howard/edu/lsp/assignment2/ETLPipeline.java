@@ -6,8 +6,8 @@ import java.io.*;
 public class ETLPipeline {
     public static void main(String[] args) {
 
-       File employees = new File("../../../../../data/employees.csv");
-       File transformed = new File("../../../../../data/transformed_employees.csv");
+       File employees = new File("data/employees.csv");
+       File transformed = new File("data/transformed_employees.csv");
        String line;
        String splitBy = ",";
        List<String[]> output = new ArrayList<>();
