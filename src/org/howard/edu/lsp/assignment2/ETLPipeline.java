@@ -7,6 +7,7 @@ public class ETLPipeline {
     public static void main(String[] args) {
 
        File employees = new File("../../../../../data/employees.csv");
+       File transformed = new File("../../../../../data/transformed_employees.csv");
        String line;
        String splitBy = ",";
        List<String[]> output = new ArrayList<>();
@@ -20,6 +21,7 @@ public class ETLPipeline {
                String[] fields = line.split(splitBy);
                if (fields.length != 5) {
                    skipped++;
+                   index++;
                    continue;
                }
                // checks for header
@@ -28,6 +30,7 @@ public class ETLPipeline {
                    index++;
                    continue;
                }
+               index++;
                try {
                    fields[1] = fields[1].toUpperCase();
                }
@@ -66,7 +69,12 @@ public class ETLPipeline {
                   gross_pay *= 1.05;
               }
               gross_pay = Math.round(gross_pay * Math.pow(10, 2)) / Math.pow(10, 2);
-              calcs[5] = Double.toString(gross_pay);
+              String hours_string = String.format("%.2f",hours);
+              String rate_string = String.format("%.2f",rate);
+              String gross_pay_string = String.format("%.2f",gross_pay);
+              calcs[3] = hours_string;
+              calcs[4] = rate_string;
+              calcs[5] = gross_pay_string;
               if (gross_pay < 500) {
                   calcs[6] = "Low";
               }
@@ -86,16 +94,26 @@ public class ETLPipeline {
                   calcs[7] = "Full-Time";
               }
               output.add(calcs);
-              index++;
                }
            }
         catch (IOException e) {
            System.out.println(e.getMessage());
         }
-        for (String[] entry: output) {
-           System.out.println(Arrays.toString(entry));
+        try (BufferedWriter wr = new BufferedWriter(new FileWriter(transformed))) {
+           for (String[] row : output) {
+               String l = String.join(",", row);
+
+               wr.write(l);
+               wr.newLine();
+           }
         }
-        System.out.println(Integer.toString(skipped));
+        catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+        System.out.println("Rows read: " + (index-1));
+        System.out.println("Rows transformed: " + (index - 1 - skipped));
+        System.out.println("Rows skipped: " + skipped);
+
     }
     // 101,ALICE JOHNSON,HR,40.00,25.00,1000.00,High,Full-Time
     //102,BOB SMITH,IT,45.00,30.00,1496.25,High,Full-Time
