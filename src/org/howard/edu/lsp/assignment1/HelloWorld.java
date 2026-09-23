@@ -1,4 +1,4 @@
-package org.howard.edu.lsp.assignment
+package org.howard.edu.lsp.assignment;
 
   /**
   *Dewayne Stephenson
