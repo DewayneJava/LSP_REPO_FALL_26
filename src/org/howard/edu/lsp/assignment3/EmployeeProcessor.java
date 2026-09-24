@@ -1,22 +1,45 @@
 package org.howard.edu.lsp.assignment3;
 
 public class EmployeeProcessor {
+
+    public Employee createEmployee(String[] fields) {
+        if (fields.length != 5) {
+            return null;
+        }
+        try {
+
+            for (int i = 0; i < fields.length; i++) {
+                fields[i] = fields[i].trim();
+
+            }
+
+            int id = Integer.parseInt(fields[0]);
+            double hours = Double.parseDouble(fields[3]);
+            double rate = Double.parseDouble(fields[4]);
+
+            return new Employee(id, fields[1], fields[2], hours, rate);
+        }
+        catch (NumberFormatException e) {
+            return null;
+        }
+    }
     public boolean isValid(Employee employee) {
         return employee.getHours() >= 0 && employee.getRate() >= 0 && employee.getId() >= 0;
     }
     public void process(Employee employee) {
-        employee.set(employee.getName().toUpperCase());
+        employee.setName(employee.getName().toUpperCase());
 
-        double grossPay = calculateGrossPay(employee);
+        double grossPay = calcGrossPay(employee);
 
         employee.setGrossPay(grossPay);
         employee.setPayLevel(determinePayLevel(grossPay));
         employee.setStatus(determineStatus(employee));
     }
-    private double calcGrossPay((Employee employee)) {
-        hours = employee.getHours();
-        rate = employees.getRate();
-        if hours >= 40 {
+    private double calcGrossPay(Employee employee) {
+        double hours = employee.getHours();
+        double rate = employee.getRate();
+        double grossPay;
+        if (hours >= 40) {
             grossPay = (40 * rate) + ((hours - 40) * 1.5 * rate);
         }
         else {
@@ -28,21 +51,21 @@ public class EmployeeProcessor {
         return Math.round(grossPay * 100.0) / 100.0;
     }
     private String determinePayLevel(double grossPay) {
-        if (gross_pay < 500) {
+        if (grossPay < 500) {
             return "Low";
         }
-        else if (gross_pay < 1000) {
+        else if (grossPay < 1000) {
             return "Standard";
         }
-        else if (gross_pay < 2000) {
+        else if (grossPay < 2000) {
             return "High";
         }
         else {
             return "Executive";
         }
     }
-    private String determineStatus(employee Employee) {
-        if employee.getHours() < 30 {
+    private String determineStatus(Employee employee) {
+        if (employee.getHours() < 30) {
             return "Part-Time";
         }
         return "Full-Time";

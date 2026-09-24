@@ -1,5 +1,9 @@
+1)Assignment 2 was procedural based, where the program was executed in sequential steps. First, I read each line in the csv while skipping lines that were invalid. From there, I was able to modify and add data for each employee. Once all lines were processed, I then wrote the new data to a different csv file.
+2) I did not need an arraylist called outputs, as I could just use a list of Employees to write the information into the transformed_csv. Instead, I was able to have an Employee class, which had private variables corresponding to the fields of Assignment 2.
+3) I introduced the CSV processor class to make the ETLPipeline easier to read, as well as to make future additions and debugging easier. If any errors occur in the reading, I now know what to fix. The Employee Processor class was there to process and filter each line of the input csv. Once the line is filtered, the variables such as hours and rate are used to calculate fields such as the gross pay. The Employee class is there
+4) The ETLPipeline is much shorter. The only thing that remains there is the printing, and the counting of lines read, transformed and skipped. The reading and writing of csv files are in the csv processor class. The data filtering and parsing methods are in the EmployeeProcessor Class. The EmployeeProcessor class creates the Employee class, which is a class with a constructor that represents the information one employee has.
+5) Assignment 3’s OOP design is much more scalable and readable. If you wanted to add a new part to Assignment 2, you would need to reread the code to see if old parts would be affected by a new feature. With OOP, you could just modify a class if it needs to be updated. Additionally, you can extend class behaviors for new types of data, while in procedural coding you would need to have a huge file.
 
-No AI was used, but I did use Internet Sources
-
-
-String format guide: https://www.w3schools.com/java/ref_string_format.asp
+String format guide: https://www.w3schools.com/java/ref_string_format.asp0
+OOP design in Java: https://www.w3schools.com/java/java_oop.asp
+AI was not used in this assignment.
