@@ -1,0 +1,3 @@
+# CRC Cards
+
+The Library collaborates with the Book but not vice versa since the Library has a "has-a" relationship with the Book. A library contains several books, and the library interface defines how the codebase interacts with those books. The Book class has the information for each book, and it does not need to interact with the library in the class. The Book class only manages its own availability. The reason we enforce a three book limit is to prevent all the books in the library from being borrowed. It is very unlikely for a user to need more than 3 books at once. Even if the library has less than 3 books, establishing a limit makes it simulate a real library more accurately.
